@@ -1,0 +1,2 @@
+# Ignore private keys if we add stable ID packaging at the end of the project.
+*.pem

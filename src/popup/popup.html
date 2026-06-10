@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus Mode</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup" id="popup-root" data-focus="off" data-view="main">
+      <div id="view-main" class="view view--main">
+      <header class="hero">
+        <div class="hero__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 3c-4.5 2.2-7.5 6.2-7.5 11v2.5l-1.5 1.5V20h18v-2l-1.5-1.5V14c0-4.8-3-8.8-7.5-11Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9.5 20a2.5 2.5 0 0 0 5 0"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div class="hero__text">
+          <p class="hero__brand">Focus Mode · <span id="app-version">v0.4.0</span></p>
+          <h1 class="hero__title" id="status-title">You're unprotected</h1>
+        </div>
+        <span class="status-pill" id="status-pill" aria-label="Focus status">
+          <span class="status-pill__dot"></span>
+          <span class="status-pill__label" id="status-pill-label">Off</span>
+        </span>
+      </header>
+
+      <p class="lede" id="status-lede">
+        One click silences notification popups and permission prompts across every
+        open tab.
+      </p>
+
+      <section class="stats" aria-label="Session overview">
+        <article class="stat-card">
+          <span class="stat-card__value" id="stat-blocked">—</span>
+          <span class="stat-card__label">Blocked this session</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-card__value" id="stat-scope">All tabs</span>
+          <span class="stat-card__label">Protection scope</span>
+        </article>
+      </section>
+
+      <div
+        class="connection-banner"
+        id="connection-status"
+        role="status"
+        aria-live="polite"
+      >
+        <span class="connection-banner__spinner" aria-hidden="true"></span>
+        <span class="connection-banner__text">Connecting…</span>
+      </div>
+
+      <button type="button" class="cta" id="toggle-btn">
+        <span class="cta__label" id="toggle-label">Enter Focus Mode</span>
+      </button>
+
+      <button type="button" class="cta cta--test" id="open-test-page">
+        Open notification test page
+      </button>
+
+      <p class="footnote" id="footnote">
+        Deactivating shows a summary of blocked notifications by site.
+      </p>
+      </div>
+
+      <section
+        id="view-report"
+        class="view view--report"
+        hidden
+        aria-label="Session report"
+      >
+        <header class="report__header">
+          <p class="report__eyebrow">Session complete</p>
+          <h2 class="report__title">Focus summary</h2>
+          <p class="report__meta" id="report-meta">—</p>
+        </header>
+
+        <div class="report__total">
+          <span class="report__total-value" id="report-total">0</span>
+          <span class="report__total-label">notifications blocked</span>
+        </div>
+
+        <div class="report__table-wrap" id="report-table-wrap" hidden>
+          <p class="report__table-title">By site</p>
+          <ul class="report__list" id="report-list"></ul>
+        </div>
+
+        <p class="report__empty" id="report-empty" hidden>
+          Quiet session — no interruption attempts detected.
+        </p>
+
+        <button type="button" class="cta cta--secondary" id="dismiss-report-btn">
+          Done
+        </button>
+      </section>
+
+      <footer class="footer">
+        <span class="footer__label">Extension ID</span>
+        <code
+          class="footer__slug"
+          id="extension-slug"
+          title="Project slug (internal identifier)"
+        >brainx-extension-focus-mode-hackthon</code>
+      </footer>
+    </main>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

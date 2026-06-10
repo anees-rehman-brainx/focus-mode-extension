@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notification test — Focus Mode</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: system-ui, sans-serif;
+      }
+      body {
+        max-width: 36rem;
+        margin: 2rem auto;
+        padding: 0 1rem 2rem;
+        line-height: 1.5;
+      }
+      .note {
+        padding: 0.75rem 0.85rem;
+        border-radius: 8px;
+        border: 1px solid #64748b55;
+        background: #64748b18;
+        font-size: 0.9rem;
+      }
+      code {
+        font-size: 0.85em;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+      button {
+        padding: 0.55rem 0.9rem;
+        cursor: pointer;
+        border-radius: 8px;
+        border: 1px solid #64748b88;
+        background: #0ea5e922;
+        font-weight: 600;
+      }
+      pre {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: #0f172a12;
+        border: 1px solid #64748b44;
+        min-height: 6rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Notification test page</h1>
+    <p class="note">
+      Opened from the Focus Mode extension. Use this page to test blocking and
+      session counts — no need to open a <code>file://</code> path manually.
+    </p>
+    <ol>
+      <li>Enter Focus Mode from the extension popup.</li>
+      <li>Click the buttons below — with focus ON, no OS toast should appear.</li>
+      <li>Exit focus to see the session report with counts from this page.</li>
+    </ol>
+
+    <div class="actions">
+      <button type="button" id="request-permission">Request permission</button>
+      <button type="button" id="show-notification">Show notification</button>
+      <button type="button" id="clear-log">Clear log</button>
+    </div>
+
+    <pre id="log"></pre>
+
+    <script>
+      const logEl = document.getElementById("log");
+      function log(msg) {
+        logEl.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      log("Page ready — origin: " + location.hostname);
+
+      document.getElementById("clear-log").addEventListener("click", () => {
+        logEl.textContent = "";
+      });
+
+      document.getElementById("request-permission").addEventListener("click", async () => {
+        try {
+          const result = await Notification.requestPermission();
+          log("requestPermission → " + result);
+        } catch (e) {
+          log("requestPermission error → " + e.message);
+        }
+      });
+
+      document.getElementById("show-notification").addEventListener("click", () => {
+        try {
+          const n = new Notification("Focus Mode test", {
+            body: "If you see this OS toast, focus mode is OFF.",
+          });
+          log("new Notification() called");
+          n.onshow = () => log("notification onshow fired (focus likely OFF)");
+          n.onerror = () => log("notification onerror");
+        } catch (e) {
+          log("new Notification error → " + e.message);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Focus Mode",
+  "short_name": "BrainX Focus",
+  "version": "0.4.0",
+  "description": "Silence browser notifications across all tabs with one click. Review what was blocked when you're done.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Focus Mode — click to open",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "contentSettings", "scripting", "tabs"],
+  "host_permissions": ["http://*/*", "https://*/*", "file:///*"]
+}
